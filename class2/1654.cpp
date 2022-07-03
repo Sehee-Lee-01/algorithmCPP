@@ -13,25 +13,16 @@ int main() {
         lan_length.push_back(temp);
     }
     sort(lan_length.begin(), lan_length.end());
-    temp = K-1;
-    while (1) {
-        X = lan_length[temp]; 
-        lan_count = 0;
-        for (auto iter=lan_length.begin(); iter!=lan_length.end();iter++) {lan_count += *iter/X;}
-        if ((lan_count<N)&&(temp!=0)) {temp--;} else {break;}
-    }
-    
+    X = lan_length.back();
     while (1)
     {
         temp = (X+limit_X)/2;
         lan_count = 0;
         for (auto iter=lan_length.begin(); iter!=lan_length.end();iter++) {lan_count += *iter/temp;}
-        if(lan_count<N) {X = temp;} else {limit_X = temp;}
-        if((limit_X-1 == X)||(limit_X == X-1)||(limit_X == X)) {break;}
-        // cout << "X: "<<X << " limit_X: "<<limit_X << endl;
+        if (X < limit_X) {break;}
+        else if(lan_count<N) {X = temp-1;} 
+        else{limit_X = temp+1;}
     }
-
-    // printf("X: %d, lan_count: %d\n", X, lan_count);
-    if (limit_X>X) {printf("%d\n", X);}
-    else {printf("%d\n", limit_X);}
+    
+    printf("%d\n", X);
 }
