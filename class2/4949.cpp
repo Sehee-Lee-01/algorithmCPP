@@ -7,7 +7,7 @@ bool result;
 int main() {
     while (1) {
         stack<char> gual_open; result=true;
-        getline(cin, input); if(input == "") break;
+        getline(cin, input); if((input == "")||(input==".")) break;
         
         for (auto &c : input) {
             if ((c == '(')||(c == '[')) {gual_open.push(c); continue;}
