@@ -22,7 +22,7 @@ int main() {
     for(auto &c : input) {
         // cout<<c.first<<" nana "<< mode << "**"<<mode_count<<endl;
         if (mode_val<c.second) {mode=c.first; mode_val=c.second; mode_count=1; continue;}
-        else if (mode_val==c.second) {if((++mode_count)==2) {mode=c.first; continue;}}
+        if (mode_val==c.second) {if((++mode_count)==2) {mode=c.first; continue;}}
     }
     printf("%d\n%d\n%d\n%d\n", mean, median, mode, range);
 }
