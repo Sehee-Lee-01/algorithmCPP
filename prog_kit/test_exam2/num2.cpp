@@ -1,23 +1,33 @@
 #include <algorithm>
-#include <vector>
-
+#include <map>
+#include <set>
 using namespace std;
 
+
 int solution(vector<int> topping) {
+    // 롤케이크에 있는 토핑(종류, 갯수) 탐색
+    map<int,int> topping_type;
+    for (auto type: topping) {
+        auto find_type = topping_type.find(type);
+        if (find_type==topping_type.end()) {topping_type.insert({type,1});}
+        else {find_type->second++;}
+    }
+    
+    // 한 칸씩 옮기면서 지우고 남겨진 토핑종류 확인
     int answer = 0;
-    // 자르는 기준점 = sub_topping2의 시작
-    auto start_cake2 = topping.begin()+1;
-    while (start_cake2!=topping.end()) {
-        int cake1[10001], cake2[10001], cnt_top1=0, cnt_top2=0; // 다 넣고 나중에 size로 토핑 갯수 세기
-        for (int i=0; i<=10000; i++) {cake1[i]=0; cake2[i]=0;}
-        for (auto iter1=topping.begin();iter1!=start_cake2;iter1++) {cake1[*iter1]++;}
-        for (auto iter2=start_cake2;iter2!=topping.end();iter2++) {cake2[*iter2]++;}
-        for (int i=0; i<=10000; i++) {
-            if (cake1[i]>0) {cnt_top1++;} 
-            if (cake2[i]>0) {cnt_top2++;}
-        }
-        if (cnt_top1 == cnt_top2) {answer++;}
-        start_cake2++;
+    map<int,int> after_type= {topping_type.begin(), topping_type.end()};
+    set<int> before_type;
+    for (auto type: topping) {
+        before_type.insert(type);
+        auto find_type = after_type.find(type);
+        find_type->second--;
+        if (find_type->second == 0) {after_type.erase(type);} 
+
+        // 자르고 남겨진 토핑 종류 카운트
+        int cnt_after = after_type.size(), cnt_before = before_type.size();
+
+        // 비슷하면 answer++
+        if (cnt_before == cnt_after) {answer++;}
     }
     return answer;
 }
