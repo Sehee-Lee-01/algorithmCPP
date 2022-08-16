@@ -1,26 +1,19 @@
+#include <string>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
 
-int solution(int k, vector<vector<int>> dungeons) {
-    int answer = 0;
-    
-    // 순열 사용을 위한 인덱스 리스트 만들기
-    vector<int> index_list;
-    for (int i=0; i<dungeons.size(); i++) {index_list.push_back(i);}
-    
-    // 던전을 (순열)정렬된 인덱스 순서대로 돈다
-     while (next_permutation(index_list.begin(), index_list.end())) {
-        int temp_k=k;
-        int temp_answer=0;
-        for (auto element: index_list) {
-            if (temp_k>=dungeons[element][0]) {
-                temp_k-=dungeons[element][1];
-                temp_answer++;
-            } else {break;}
-        } 
-        if (temp_answer>answer) {answer=temp_answer;}
+int solution(vector<vector<int>> sizes) {
+    int ans_area=0, ans_w=0, ans_h=0; // ans_w >= ans_h
+    for (auto element: sizes) {
+        if (element[0]>element[1]) {
+            if (element[0]>ans_w) {ans_w = element[0];}
+            if (element[1]>ans_h) {ans_h = element[1];}
+        }
+        else {
+            if (element[0]>ans_h) {ans_h = element[0];}
+            if (element[1]>ans_w) {ans_w = element[1];}
+        }
     }
-    
-    return answer;
+    return ans_w*ans_h;
 }
