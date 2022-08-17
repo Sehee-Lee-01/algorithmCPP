@@ -60,7 +60,7 @@ int main() {
                         if (findNearCabbage!=caggageLocation.end()) {
                             // if not visited before
                             if (visited.find(nearCabbageLocation)==visited.end()) {
-                            willVisit.push_back(nearCabbageLocation);
+                                willVisit.push_back(nearCabbageLocation);
                             }
                         }
                     }
