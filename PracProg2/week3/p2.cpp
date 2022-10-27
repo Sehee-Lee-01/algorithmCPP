@@ -1,6 +1,5 @@
-// 채용 시험, 이건 풀어야됨
-// bfs!
-// dfs는 시간초과남
+// 미로탐색(채용 시험, 이건 풀어야됨)
+// bfs로! dfs는 시간초과남
 #include <iostream>
 #include <vector>
 #include <string>
