@@ -1,4 +1,3 @@
-// 클래스 안만들고 해보기
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -52,7 +51,6 @@ public:
             }
         }
         suk_using[suk_index] = true;
-        // cout << curr_dis << "(" << curr_place.first << ", " << curr_place.second << ")\n";
     }
     // 최적경로 찾기 in on tick(최단 거리 방향)
     void moveRoad(const vector<vector<int>> &map, const int n)
@@ -142,7 +140,6 @@ int main()
 
         // 성심당 위치와 숙소 위치 저장
         vector<bool> suk_using(suk_count, false);
-        // cout << "suk_count " << suk_count << "\n";
         vector<Person> person_list;
         vector<bool> is_arrive = vector<bool>(m, false); // 성심당 도착 사람
         int wait_num = m, arrive_num = 0;                // 사람 수
@@ -155,7 +152,6 @@ int main()
                 if (!is_arrive[i]) // 도착한 사람 구분
                 {
                     person_list[i].moveRoad(map, n);
-                    // cout << "person" << i << ": " << person_list[i].curr_dis << "\n";
                     if (person_list[i].curr_dis == 0) // 도착이라면
                     {
                         unable_move.push_back(make_pair(person_list[i].sung_place.first, person_list[i].sung_place.second));
@@ -167,8 +163,6 @@ int main()
 
             while (!unable_move.empty())
             {
-                // cout << "(" << unable_move.back().first << ", " << unable_move.back().second << ")"
-                //      << "\n";
                 map[unable_move.back().first][unable_move.back().second] = -1;
                 unable_move.pop_back();
             }
@@ -177,19 +171,9 @@ int main()
                 cin >> sung_row >> sung_column;
                 person_list.push_back(Person(sung_row - 1, sung_column - 1, suk_using, suk_list, n));
                 map[person_list[person_list.size() - 1].curr_place.first][person_list[person_list.size() - 1].curr_place.second] = -1;
-                // cout << m - wait_num << "curr_dis: " << person_list[m - wait_num].curr_dis << "\n";
                 wait_num--;
             }
             time++;
-            // cout << "time: " << time << "==================================\n";
-            // for (int i = 0; i < n; i++)
-            // {
-            //     for (int j = 0; j < n; j++)
-            //     {
-            //         cout << map[i][j] << " ";
-            //     }
-            //     cout << "\n";
-            // }
         }
         cout << time << "\n";
     }
