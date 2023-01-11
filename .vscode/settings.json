@@ -9,7 +9,8 @@
     "string_view": "cpp",
     "string": "cpp",
     "functional": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "queue": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
