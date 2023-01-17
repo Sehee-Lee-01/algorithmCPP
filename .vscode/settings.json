@@ -10,7 +10,14 @@
     "string": "cpp",
     "functional": "cpp",
     "ostream": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "bitset": "cpp",
+    "initializer_list": "cpp",
+    "ranges": "cpp",
+    "span": "cpp",
+    "regex": "cpp",
+    "utility": "cpp",
+    "valarray": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
