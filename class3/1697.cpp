@@ -10,57 +10,56 @@ int main()
 {
     int N, K;
     cin >> N >> K;
-    int minVistited[MAX + 1];
     bool isVistited[MAX + 1];
-    for (int i = 0; i < MAX + 1; i++)
-    {
-        minVistited[i] = abs(N - i);
-        isVistited[i] = false;
-    }
-    // minVistited[K] = abs(N - K);
 
-    if ((K <= N) || (MAX < N * 2))
-    {
-        cout << minVistited[K] << "\n";
-        return 0;
-    }
+    for (int i = 0; i < MAX + 1; i++)
+        isVistited[i] = false;
+
+    int minCnt = abs(N - K);
+
+    /*아래 주석을 생략했을 때 시간이 더 빠른이유(아래 생략을 안하면 12ms, 생략하면 8ms)*/
+    // if (K <= N)
+    // {
+    //     cout << minCnt << "\n";
+    //     return 0;
+    // }
 
     queue<vector<int>> toGo;
-    toGo.push({N, 0, -1});
+    toGo.push({N, 0});
 
     while (!toGo.empty())
     {
         vector<int> curr = toGo.front();
         toGo.pop();
         // cout << "0: " << curr[0] << ", 1: " << curr[1] << ", 2:" << curr[2] << "\n";
-        // cout << "minVistited[K]: " << minVistited[K] << "\n";
+        // cout << "minVistited[minCnt: " << minCnt << "\n";
 
-        if ((minVistited[K] < curr[1]) || (minVistited[curr[0]] < curr[1]) || (minVistited[curr[0]] == curr[1] && isVistited[curr[0]] == true))
-            continue;
         if (K == curr[0])
         {
-            minVistited[K] = curr[1];
-            isVistited[K] = true;
-            continue;
+            minCnt = curr[1];
+            break;
         }
-
-        minVistited[curr[0]] = curr[1];
-        isVistited[curr[0]] = true;
-
         // if (minVistited[curr[0]] == curr[1])
         // cout << curr[0] << " " << curr[1] << " " << curr[2] << "\n";
 
-        if ((curr[0] > 0) && (curr[0] - 1 != curr[2]) && (minVistited[curr[0]] - 1 >= curr[1] + 1))
+        if ((curr[0] > 0) && (isVistited[curr[0] - 1] == false))
+        {
+            isVistited[curr[0] - 1] = true;
             toGo.push({curr[0] - 1, curr[1] + 1, curr[0]});
-
-        if ((curr[0] < MAX) && (curr[0] + 1 != curr[2]) && (minVistited[curr[0]] + 1 >= curr[1] + 1))
+        }
+        if ((curr[0] < MAX) && (isVistited[curr[0] + 1] == false))
+        {
+            isVistited[curr[0] + 1] = true;
             toGo.push({curr[0] + 1, curr[1] + 1, curr[0]});
-
-        if (curr[0] <= MAX / 2 && (minVistited[curr[0]] * 2 >= curr[1]))
+        }
+        if (curr[0] <= MAX / 2 && (isVistited[curr[0] * 2] == false))
+        {
+            isVistited[curr[0] * 2] = true;
             toGo.push({curr[0] * 2, curr[1] + 1, curr[0]});
+        }
     }
 
-    cout << minVistited[K] << "\n";
+    cout << minCnt << "\n";
     return 0;
 }
 
